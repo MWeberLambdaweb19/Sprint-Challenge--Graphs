@@ -31,7 +31,9 @@ player = Player(world.starting_room)
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 traversal_path = []
+
 qq = Queue()
+st = Stack()
 
 
 print(traversal_path)
