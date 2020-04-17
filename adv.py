@@ -38,27 +38,55 @@ st = Stack()
 st.push([player.current_room])
 qq.enqueue([player.current_room])
 visited = set()
-# print(st.stack)
-# test = st.pop()
-# print(test)
+
 while len(world.rooms) != len(visited):
     path = st.pop()
-    vertex = path[-1]    
-    if vertex not in visited:
-        visited.add(vertex)
-        direction = random.choice(player.current_room.get_exits())
-        next_room = player.current_room.get_room_in_direction(direction)
-        if next_room in visited:
-            st.push([player.current_room])
-        else:
+    vertex = path[-1]
+    current = player.current_room
+    directions = random.choices(current.get_exits())
+    for direction in directions:
+        next_room = current.get_room_in_direction(direction)
+        if next_room not in visited:
+            visited.add(vertex)
             player.travel(direction)
             traversal_path.append(direction)
-            st.push([player.current_room])
-    else:
-        direction = random.choice(vertex.get_exits())
-        player.travel(direction)
-        traversal_path.append(direction)
-        st.push([player.current_room])
+            current = player.current_room
+            st.push([current])
+    st.push([current])
+        
+
+# CURRENT WORKING STATE
+# while len(world.rooms) != len(visited):
+#     path = st.pop()
+#     vertex = path[-1]    
+#     if vertex not in visited:
+#         visited.add(vertex)
+#         direction = random.choice(player.current_room.get_exits())
+#         next_room = player.current_room.get_room_in_direction(direction)
+#         if next_room in visited:
+#             player.travel(direction)
+#             traversal_path.append(direction)
+#             st.push([player.current_room])
+#         else:
+#             player.travel(direction)
+#             traversal_path.append(direction)
+#             st.push([player.current_room])
+#     else:
+#         direction = random.choice(player.current_room.get_exits())
+#         next_room = player.current_room.get_room_in_direction(direction)
+#         if next_room in visited:
+#             player.travel(direction)
+#             traversal_path.append(direction)
+#             st.push([player.current_room])
+#         else:
+#             player.travel(direction)
+#             traversal_path.append(direction)
+#             st.push([player.current_room])
+        # THIS WORKS
+        # direction = random.choice(vertex.get_exits())
+        # player.travel(direction)
+        # traversal_path.append(direction)
+        # st.push([player.current_room])
     # path_a = st.pop()
     # path_b = qq.dequeue()
     # vertex_a = path_a[-1]
